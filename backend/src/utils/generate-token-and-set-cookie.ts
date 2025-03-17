@@ -1,9 +1,10 @@
 import {Response} from "express"
 import mongoose from "mongoose"
 import jwt from "jsonwebtoken"
+import { config } from "../config/config"
 
 export const generateTokenAndSetCookie = (res:Response, userId: mongoose.Types.ObjectId) => {
-  const token = jwt.sign({userId}, process.env.JWT_SECRET!!, {
+  const token = jwt.sign({userId}, config.jwtSecret, {
     expiresIn: '7d'
   })
   res.cookie("token", token, {

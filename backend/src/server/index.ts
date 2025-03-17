@@ -2,6 +2,7 @@ import express, { Express } from 'express';
 import { config } from '../config/config';
 import { connectDB } from '../config/database';
 import authRoutes from "../routes/auth/auth.routes"
+import cookiesParser from 'cookie-parser';
 
 class Server {
   public app: Express
@@ -16,7 +17,8 @@ class Server {
   }
 
   private middleware(): void {
-    this.app.use(express.json());
+    this.app.use(express.json()); // alows us to parse incoming requests:req.body
+    this.app.use(cookiesParser()); // alows us to pare incoming cookies
     this.app.use(express.urlencoded({ extended: true }));
   }
   private routes(): void {

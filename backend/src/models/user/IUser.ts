@@ -8,7 +8,7 @@ export interface IUser extends Document {
   updatedAt: Date
   isVerified: boolean
   resetPasswordToken?: string
-  resetPasswordExpiresAt?: Date
+  resetPasswordExpiresAt?: number
   verificationToken?: string,
   verificationTokenExpiresAt?: Date
 }
