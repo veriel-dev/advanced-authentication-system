@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import { MailOptions } from 'nodemailer/lib/json-transport';
 
 import dotenv from 'dotenv';
-import { config } from '../config/config';
+import { config } from '../../config/config';
 
 dotenv.config();
 

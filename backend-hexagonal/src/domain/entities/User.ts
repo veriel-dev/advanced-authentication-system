@@ -1,5 +1,20 @@
-import mongoose, { Schema } from 'mongoose';
-import { IUser } from './IUser';
+import mongoose, { Schema, Types } from 'mongoose';
+import { Document } from 'mongoose';
+
+export interface IUser extends Document {
+  _id: Types.ObjectId;
+  email: string;
+  password: string;
+  name: string;
+  lastLogin: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  isVerified: boolean;
+  resetPasswordToken?: string;
+  resetPasswordExpiresAt?: number;
+  verificationToken?: string;
+  verificationTokenExpiresAt?: Date;
+}
 
 const UserSchema = new Schema<IUser>(
   {

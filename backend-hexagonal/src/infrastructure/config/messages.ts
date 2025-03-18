@@ -1,4 +1,4 @@
-export const register = {
+export const messages = {
   wrong: {
     emailRequired: 'The email is required',
     emailInvalid: 'Email invalid!!',
@@ -6,10 +6,8 @@ export const register = {
     passwordLength: 'The password must be at least 6 characters long',
     nameRequired: 'The name is required',
     userAlreadyExists: 'User Already Exist',
-    userCreatedsuccesfully: 'User created succesfully',
     internalServerError: 'Internal Server Error',
     invalidVerificationCode: 'Invalid or expired verification code',
-    emailVerifiedSuccesfully: 'Email verified successfully',
     userNotFound: 'User not found',
     invalidPassword: 'Invalid password',
     invalidOrExpiredResetTokenPassword: 'Invalid or expired reset token password',
@@ -20,6 +18,8 @@ export const register = {
     logInSuccesfully: 'Log in successfully',
     resetPasswordEmailSent: 'Reset password email sent',
     passwordResetSuccesfully: 'Password reset succesfully',
+    userCreatedsuccesfully: 'User created succesfully',
+    emailVerifiedSuccesfully: 'Email verified successfully',
   },
 };
 

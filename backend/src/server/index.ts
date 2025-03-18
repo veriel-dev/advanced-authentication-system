@@ -1,11 +1,11 @@
 import express, { Express } from 'express';
 import { config } from '../config/config';
 import { connectDB } from '../config/database';
-import authRoutes from "../routes/auth/auth.routes"
+import authRoutes from '../routes/auth/auth.routes';
 import cookiesParser from 'cookie-parser';
 
 class Server {
-  public app: Express
+  public app: Express;
   private PREFIX_URL: String;
 
   constructor() {
@@ -13,7 +13,7 @@ class Server {
     this.PREFIX_URL = '/api/v1';
     this.connectDb();
     this.middleware();
-    this.routes(); 
+    this.routes();
   }
 
   private middleware(): void {
@@ -25,7 +25,7 @@ class Server {
     this.app.use(`${this.PREFIX_URL}/auth`, authRoutes);
   }
   private async connectDb(): Promise<void> {
-    await connectDB()
+    await connectDB();
   }
 
   public async start() {

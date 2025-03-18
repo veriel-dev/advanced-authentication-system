@@ -1,7 +1,7 @@
 import { Response } from 'express';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import { config } from '../config/config';
+import { config } from '../infrastructure/config/config';
 
 export const generateTokenAndSetCookie = (res: Response, userId: mongoose.Types.ObjectId) => {
   const token = jwt.sign({ userId }, config.jwtSecret, {
