@@ -1,0 +1,4 @@
+packages:
+  - 'backend-hexagonal'
+  - 'frontend-react'
+  - 'backend'

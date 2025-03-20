@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running format check and linting..."
+
+# Backend project
+echo "📦 Checking backend-hexagonal..."
+cd backend-hexagonal
+pnpm format:check || { echo '❌ Backend format check failed. Run `cd backend-hexagonal && pnpm format` to fix.'; exit 1; }
+pnpm lint || { echo '❌ Backend lint check failed. Run `cd backend-hexagonal && pnpm lint:fix` to fix.'; exit 1; }
+cd ..
+
+# Frontend project
+echo "🖥️ Checking frontend-react..."
+cd frontend-react
+pnpm format:check || { echo '❌ Frontend format check failed. Run `cd frontend-react && pnpm format` to fix.'; exit 1; }
+pnpm lint || { echo '❌ Frontend lint check failed. Run `cd frontend-react && pnpm lint:fix` to fix.'; exit 1; }
+cd ..
+
+echo "✅ Pre-commit checks passed!"

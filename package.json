@@ -8,9 +8,16 @@
     "build:backend": "cd backend && npm install && npm run build",
     "build:frontend": "cd frontend && npm install && npm run build",
     "build": "npm run build:backend && npm run build:frontend",
-    "start":"npm run start --prefix backend && npm run preview --prefix frontend"
+    "start": "npm run start --prefix backend && npm run preview --prefix frontend",
+    "prepare": "husky",
+    "format": "pnpm --filter './backend-hexagonal' format && pnpm --filter './frontend-react' format",
+    "lint": "pnpm --filter './backend-hexagonal' lint && pnpm --filter './frontend-react' lint"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0"
+  }
 }
