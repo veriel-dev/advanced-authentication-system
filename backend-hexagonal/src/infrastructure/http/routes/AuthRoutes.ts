@@ -13,7 +13,7 @@ const createAuthRouter = (authController: AuthController) => {
   const router = Router();
 
   router.post(
-    '/register',
+    '/signup',
     validate(registerValidation) as RequestHandler,
     authController.register.bind(authController),
   );

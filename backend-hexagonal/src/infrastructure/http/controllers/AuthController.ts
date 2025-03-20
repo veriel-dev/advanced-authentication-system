@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 
 export class AuthController {
   constructor(private authenticationService: AuthenticationService) {}
+
   async register(req: Request, res: Response) {
     try {
       const { email, password, name } = req.body;
@@ -19,6 +20,7 @@ export class AuthController {
         HtttpStatus[statusCodeKey],
         result.success,
         result.success ? messages.success.userCreatedsuccesfully : result.message,
+        { user: result.user?.toObject() }
       );
     } catch (error) {
       console.log(`${messages.wrong.internalServerError} : ${error}`);
@@ -42,6 +44,7 @@ export class AuthController {
         HtttpStatus[statusCodeKey],
         result.success,
         result.success ? messages.success.emailVerifiedSuccesfully : result.message,
+        { user: result.user?.toObject() }
       );
     } catch (error) {
       console.log(`${messages.wrong.internalServerError}:  ${error}`);
@@ -65,6 +68,7 @@ export class AuthController {
         HtttpStatus[statusCodeKey],
         result.success,
         result.success ? messages.success.logInSuccesfully : result.message,
+        { user: result.user?.toObject() }
       );
     } catch (error) {
       console.log(`${messages.wrong.internalServerError}:  ${error}`);

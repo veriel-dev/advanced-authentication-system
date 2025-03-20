@@ -4,14 +4,10 @@ import { UserRepository } from '../../domain/repositories/UserRepository';
 
 export class MongoUserRepository implements UserRepository {
   async save(user: IUser): Promise<IUser> {
-    if (user._id) {
-      const userUpdated = await User.findByIdAndUpdate(user._id, user, { new: true });
-      return userUpdated as unknown as IUser;
-    } else {
-      const newUser = new User(user);
-      await newUser.save();
-      return newUser as unknown as IUser;
-    }
+    const newUser = new User(user);
+    await newUser.save();
+    return newUser as unknown as IUser;
+    
   }
   async findByEmail(email: string): Promise<IUser | null> {
     console.log(email);

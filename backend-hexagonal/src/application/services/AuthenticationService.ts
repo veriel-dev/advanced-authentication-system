@@ -5,13 +5,14 @@ import { ONE_HOUR, TWENTY_FOUR_HOURS } from '../../infrastructure/config/constan
 import User from '../../domain/entities/User';
 import { Response } from 'express';
 import mongoose from 'mongoose';
+import { cookie } from 'express-validator';
 
 export class AuthenticationService {
   constructor(
     private userRepository: UserRepository,
     private authService: AuthService,
     private emailService: EmailService,
-  ) {}
+  ) { }
 
   async register(userData: { email: string; password: string; name: string }, res: Response) {
     const existingUser = await this.userRepository.findByEmail(userData.email);
@@ -44,6 +45,7 @@ export class AuthenticationService {
       success: true,
       code: 'CREATED',
       message: 'User created successfully',
+      user: savedUser
     };
   }
 
@@ -69,11 +71,11 @@ export class AuthenticationService {
       success: true,
       code: 'CREATED',
       message: 'Email verified successfully',
+      user
     };
   }
 
   async login(credentials: { email: string; password: string }, res: Response) {
-    console.log(credentials);
     const user = await this.userRepository.findByEmail(credentials.email);
 
     if (!user) {
@@ -105,6 +107,7 @@ export class AuthenticationService {
       success: true,
       code: 'OK',
       message: 'Login successful',
+      user
     };
   }
 
@@ -183,7 +186,33 @@ export class AuthenticationService {
   }
 
   logout(res: Response) {
-    res.clearCookie('token');
+
+
+    res.cookie('token', '', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV !== 'development',
+      expires: new Date(0),
+      maxAge: -1
+    });
+
+    // Método 2: Forzar expiración con clearCookie
+    res.clearCookie('token', {
+      httpOnly: true,
+      sameSite: 'strict',
+      secure: process.env.NODE_ENV !== 'development',
+      path: '/'
+    });
+
+    // Método 3: Establecer encabezado directo
+    res.setHeader('Set-Cookie',
+      'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Strict' +
+      (process.env.NODE_ENV !== 'development' ? '; Secure' : '')
+    );
+
+    console.log({
+      cookie: res.get('Set-Cookie')
+    });
 
     return {
       success: true,

@@ -32,10 +32,12 @@ class Server {
   private middleware(): void {
     this.app.use(express.json());
     this.app.use(cookieParser());
+    console.log({url: config.clientUrl})
     this.app.use(
       cors({
         origin: config.clientUrl,
         credentials: true,
+        methods: ["GET", "POST", "PUT", "DELETE"]
       }),
     );
   }
@@ -56,7 +58,6 @@ class Server {
     const authController = new AuthController(authenticationService);
 
     const authRouter = createAuthRouter(authController);
-
     this.app.use(`${this.PREFIX_URL}/auth`, authRouter);
 
     this.app.get('/health', (req: Request, res: Response) => {
