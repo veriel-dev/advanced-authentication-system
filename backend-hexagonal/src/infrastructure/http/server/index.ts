@@ -42,7 +42,7 @@ class Server {
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
       }),
     );
-    if (config.environment === "production") {
+    if (config.environment === 'production') {
       this.app.use(express.static(this.frontendPath));
     }
   }
@@ -68,11 +68,11 @@ class Server {
     this.app.get('/health', (req: Request, res: Response) => {
       res.status(200).json({ status: 'ok' });
     });
-    if (config.environment === "production") {
-      this.app.get("*", (req: Request, res: Response) => {
-        res.sendFile(path.join(this.frontendPath, "index.html"));
+    if (config.environment === 'production') {
+      this.app.get('*', (req: Request, res: Response) => {
+        res.sendFile(path.join(this.frontendPath, 'index.html'));
       });
-    } 
+    }
   }
   private async connectDb(): Promise<void> {
     await connectDB();
