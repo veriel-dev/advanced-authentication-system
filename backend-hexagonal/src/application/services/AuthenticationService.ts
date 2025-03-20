@@ -186,8 +186,6 @@ export class AuthenticationService {
   }
 
   logout(res: Response) {
-
-
     res.cookie('token', '', {
       httpOnly: true,
       sameSite: 'strict',
@@ -195,21 +193,6 @@ export class AuthenticationService {
       expires: new Date(0),
       maxAge: -1
     });
-
-    // Método 2: Forzar expiración con clearCookie
-    res.clearCookie('token', {
-      httpOnly: true,
-      sameSite: 'strict',
-      secure: process.env.NODE_ENV !== 'development',
-      path: '/'
-    });
-
-    // Método 3: Establecer encabezado directo
-    res.setHeader('Set-Cookie',
-      'token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT; HttpOnly; SameSite=Strict' +
-      (process.env.NODE_ENV !== 'development' ? '; Secure' : '')
-    );
-
     console.log({
       cookie: res.get('Set-Cookie')
     });
