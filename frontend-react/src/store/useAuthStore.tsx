@@ -39,8 +39,8 @@ interface AuthStoreType {
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   message: string | null;
-  forgotPassword: (email: string) => Promise<void>
-  resetPassword: (token: string, password: string) => Promise<void>
+  forgotPassword: (email: string) => Promise<void>;
+  resetPassword: (token: string, password: string) => Promise<void>;
 }
 export const useAuthStore = create<AuthStoreType>((set) => ({
   user: null,
@@ -106,10 +106,10 @@ export const useAuthStore = create<AuthStoreType>((set) => ({
     }
   },
   forgotPassword: async (email: string) => {
-    set({ isLoading: true, error: null,  message: null });
+    set({ isLoading: true, error: null, message: null });
     try {
       const response = await api.post(`/forgot-password`, { email });
-      set({ user: response.data.user,  isLoading: false });
+      set({ user: response.data.user, isLoading: false });
     } catch (error) {
       const errorMessage = handleApiError(error);
       set({ error: errorMessage, isLoading: false });
@@ -117,14 +117,14 @@ export const useAuthStore = create<AuthStoreType>((set) => ({
     }
   },
   resetPassword: async (token: string, password: string) => {
-    set({ isLoading: true, error: null,  message: null });
+    set({ isLoading: true, error: null, message: null });
     try {
       const response = await api.post(`/reset-password/${token}`, { password });
-      set({ message: response.data.message,  isLoading: false });
+      set({ message: response.data.message, isLoading: false });
     } catch (error) {
       const errorMessage = handleApiError(error);
       set({ error: errorMessage, isLoading: false });
       throw error;
     }
-  }
+  },
 }));

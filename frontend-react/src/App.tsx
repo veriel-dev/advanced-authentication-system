@@ -76,16 +76,22 @@ function App() {
           }
         />
         <Route path="/verify-email" element={<VerifyEmailPage />} />
-        <Route path="/forgot-password" element={
-          <RedirectAuthenticatedUser>
-            <ForgotPasswordPage />
-          </RedirectAuthenticatedUser>
-        } />
-        <Route path="/reset-password/:token" element={
-          <RedirectAuthenticatedUser>
-            <ResetPasswordPage />
-          </RedirectAuthenticatedUser>
-        } />
+        <Route
+          path="/forgot-password"
+          element={
+            <RedirectAuthenticatedUser>
+              <ForgotPasswordPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <RedirectAuthenticatedUser>
+              <ResetPasswordPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
         {/* catch all routes */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

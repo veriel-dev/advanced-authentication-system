@@ -1,7 +1,6 @@
-
 import { motion } from 'framer-motion';
 import Input from '../components/Input';
-import {  ArrowLeft, Lock } from 'lucide-react';
+import { ArrowLeft, Lock } from 'lucide-react';
 import useForm from '../hooks/useForm';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuthStore } from '../store/useAuthStore';
@@ -15,7 +14,7 @@ const ResetPasswordPage = () => {
   const { formData, handleInputChange, handleSubmit } = useForm(initialState);
   const { isLoading, error, resetPassword, message } = useAuthStore();
   const { token } = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const submitForm = async (data: typeof formData) => {
     if (formData.password !== formData.confirmPassword) {
       toast.error('Passwords do not match');
@@ -78,8 +77,11 @@ const ResetPasswordPage = () => {
         </form>
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
-        <Link to="/login" className="text-green-400 font-bold hover:underline flex items-center justify-center gap-1">
-          <ArrowLeft className='h-5 w-5' /> Back to Login
+        <Link
+          to="/login"
+          className="text-green-400 font-bold hover:underline flex items-center justify-center gap-1"
+        >
+          <ArrowLeft className="h-5 w-5" /> Back to Login
         </Link>
       </div>
     </motion.div>
