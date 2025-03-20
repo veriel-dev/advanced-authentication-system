@@ -32,12 +32,12 @@ class Server {
   private middleware(): void {
     this.app.use(express.json());
     this.app.use(cookieParser());
-    console.log({url: config.clientUrl})
+    console.log({ url: config.clientUrl });
     this.app.use(
       cors({
         origin: config.clientUrl,
         credentials: true,
-        methods: ["GET", "POST", "PUT", "DELETE"]
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
       }),
     );
   }

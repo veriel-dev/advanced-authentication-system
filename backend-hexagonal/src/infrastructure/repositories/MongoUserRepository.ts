@@ -7,7 +7,6 @@ export class MongoUserRepository implements UserRepository {
     const newUser = new User(user);
     await newUser.save();
     return newUser as unknown as IUser;
-    
   }
   async findByEmail(email: string): Promise<IUser | null> {
     console.log(email);

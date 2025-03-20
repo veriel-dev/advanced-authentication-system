@@ -1,24 +1,20 @@
-
-import { motion } from "framer-motion"
-import Input from "../components/Input"
-import { Mail, Lock, Loader } from "lucide-react"
-import useForm from "../hooks/useForm";
-import { Link } from "react-router-dom";
-import { useAuthStore } from "../store/useAuthStore";
-
-
+import { motion } from 'framer-motion';
+import Input from '../components/Input';
+import { Mail, Lock, Loader } from 'lucide-react';
+import useForm from '../hooks/useForm';
+import { Link } from 'react-router-dom';
+import { useAuthStore } from '../store/useAuthStore';
 
 const LoginPage = () => {
-
   const initialState = {
     email: '',
     password: '',
   };
   const { formData, handleInputChange, handleSubmit } = useForm(initialState);
-  const {login, isLoading, error} = useAuthStore()
+  const { login, isLoading, error } = useAuthStore();
 
   const submitForm = async (data: typeof formData) => {
-    await login(data.email, data.password)
+    await login(data.email, data.password);
   };
 
   return (
@@ -60,22 +56,23 @@ const LoginPage = () => {
                 shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            type='submit'
+            type="submit"
             disabled={isLoading}
           >
-            {isLoading ? <Loader className="w-6 h-6 animate-spin text-center mx-auto"/> : "Login"}
+            {isLoading ? <Loader className="w-6 h-6 animate-spin text-center mx-auto" /> : 'Login'}
           </motion.button>
         </form>
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
         <p className="text-sm text-gray-400">
-          Don't have an account? {" "}
-          <Link to="/signup" className="text-green-400 font-bold hover:underline">Sign Up</Link>
+          Don't have an account?{' '}
+          <Link to="/signup" className="text-green-400 font-bold hover:underline">
+            Sign Up
+          </Link>
         </p>
       </div>
-
     </motion.div>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

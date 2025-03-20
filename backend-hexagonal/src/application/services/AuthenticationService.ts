@@ -5,14 +5,13 @@ import { ONE_HOUR, TWENTY_FOUR_HOURS } from '../../infrastructure/config/constan
 import User from '../../domain/entities/User';
 import { Response } from 'express';
 import mongoose from 'mongoose';
-import { cookie } from 'express-validator';
 
 export class AuthenticationService {
   constructor(
     private userRepository: UserRepository,
     private authService: AuthService,
     private emailService: EmailService,
-  ) { }
+  ) {}
 
   async register(userData: { email: string; password: string; name: string }, res: Response) {
     const existingUser = await this.userRepository.findByEmail(userData.email);
@@ -45,7 +44,7 @@ export class AuthenticationService {
       success: true,
       code: 'CREATED',
       message: 'User created successfully',
-      user: savedUser
+      user: savedUser,
     };
   }
 
@@ -71,7 +70,7 @@ export class AuthenticationService {
       success: true,
       code: 'CREATED',
       message: 'Email verified successfully',
-      user
+      user,
     };
   }
 
@@ -107,7 +106,7 @@ export class AuthenticationService {
       success: true,
       code: 'OK',
       message: 'Login successful',
-      user
+      user,
     };
   }
 
@@ -191,10 +190,10 @@ export class AuthenticationService {
       sameSite: 'strict',
       secure: process.env.NODE_ENV !== 'development',
       expires: new Date(0),
-      maxAge: -1
+      maxAge: -1,
     });
     console.log({
-      cookie: res.get('Set-Cookie')
+      cookie: res.get('Set-Cookie'),
     });
 
     return {

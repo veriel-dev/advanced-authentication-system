@@ -1,32 +1,28 @@
-import { motion } from "framer-motion"
-import Input from "../components/Input"
-import { Mail, User, Lock, Loader } from "lucide-react"
-import useForm from "../hooks/useForm";
-import { Link, useNavigate } from "react-router-dom";
-import PasswordStrength from "../components/PasswordStrength";
-import { useAuthStore } from "../store/useAuthStore";
-
-
+import { motion } from 'framer-motion';
+import Input from '../components/Input';
+import { Mail, User, Lock, Loader } from 'lucide-react';
+import useForm from '../hooks/useForm';
+import { Link, useNavigate } from 'react-router-dom';
+import PasswordStrength from '../components/PasswordStrength';
+import { useAuthStore } from '../store/useAuthStore';
 
 const SignUpPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const initialState = {
     email: '',
     password: '',
     name: '',
   };
   const { formData, handleInputChange, handleSubmit } = useForm(initialState);
-  const {signup, error, isLoading} = useAuthStore();
+  const { signup, error, isLoading } = useAuthStore();
 
   const submitForm = async (data: typeof formData) => {
-    
     try {
       await signup(data.email, data.password, data.name);
       navigate('/verify-email');
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
   };
 
   return (
@@ -74,22 +70,23 @@ const SignUpPage = () => {
                 shadow-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition duration-200"
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            type='submit'
+            type="submit"
             disabled={isLoading}
           >
-            {isLoading ? <Loader className="animate-spin mx-auto" size={24} /> : "Sign Up"}
+            {isLoading ? <Loader className="animate-spin mx-auto" size={24} /> : 'Sign Up'}
           </motion.button>
         </form>
       </div>
       <div className="px-8 py-4 bg-gray-900 bg-opacity-50 flex justify-center">
         <p className="text-sm text-gray-400">
-          Already have an account? {" "}
-          <Link to="/login" className="text-green-400 font-bold hover:underline">Sign In</Link>
+          Already have an account?{' '}
+          <Link to="/login" className="text-green-400 font-bold hover:underline">
+            Sign In
+          </Link>
         </p>
       </div>
-
     </motion.div>
-  )
-}
+  );
+};
 
-export default SignUpPage
+export default SignUpPage;

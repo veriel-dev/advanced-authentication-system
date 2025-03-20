@@ -1,28 +1,29 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 interface FormState {
   [key: string]: string;
 }
 const useForm = (initialState: FormState) => {
   const [formData, setFormData] = useState<FormState>(initialState);
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const {name, value, type} = e.target
-    
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) => {
+    const { name, value, type } = e.target;
+
     if (type === 'checkbox') {
       const checked = (e.target as HTMLInputElement).checked;
-      setFormData(prevState => ({
+      setFormData((prevState) => ({
         ...prevState,
-        [name]: checked.toString()
+        [name]: checked.toString(),
       }));
       return;
     }
 
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
-  }
+  };
   const handleSubmit = (e: FormEvent<HTMLFormElement>, onSubmit: (data: FormState) => void) => {
     e.preventDefault();
     onSubmit(formData);
@@ -35,8 +36,8 @@ const useForm = (initialState: FormState) => {
     handleInputChange,
     handleSubmit,
     resetForm,
-    setFormData
-  }
-}
+    setFormData,
+  };
+};
 
-export default useForm
+export default useForm;

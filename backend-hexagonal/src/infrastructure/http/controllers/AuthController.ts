@@ -20,7 +20,7 @@ export class AuthController {
         HtttpStatus[statusCodeKey],
         result.success,
         result.success ? messages.success.userCreatedsuccesfully : result.message,
-        { user: result.user?.toObject() }
+        { user: result.user?.toObject() },
       );
     } catch (error) {
       console.log(`${messages.wrong.internalServerError} : ${error}`);
@@ -44,7 +44,7 @@ export class AuthController {
         HtttpStatus[statusCodeKey],
         result.success,
         result.success ? messages.success.emailVerifiedSuccesfully : result.message,
-        { user: result.user?.toObject() }
+        { user: result.user?.toObject() },
       );
     } catch (error) {
       console.log(`${messages.wrong.internalServerError}:  ${error}`);
@@ -68,7 +68,7 @@ export class AuthController {
         HtttpStatus[statusCodeKey],
         result.success,
         result.success ? messages.success.logInSuccesfully : result.message,
-        { user: result.user?.toObject() }
+        { user: result.user?.toObject() },
       );
     } catch (error) {
       console.log(`${messages.wrong.internalServerError}:  ${error}`);
@@ -128,9 +128,10 @@ export class AuthController {
   }
   async checkAuth(req: RequestWithUserId, res: Response) {
     try {
-      const result = await this.authenticationService.checkAuth(req.userId as mongoose.Types.ObjectId);
+      const result = await this.authenticationService.checkAuth(
+        req.userId as mongoose.Types.ObjectId,
+      );
       const user = result.user;
-
 
       const statusCodeKey = result.code as keyof typeof HtttpStatus;
 
@@ -139,7 +140,7 @@ export class AuthController {
         HtttpStatus[statusCodeKey],
         true,
         messages.success.logInSuccesfully,
-        { user: user?.toObject() }
+        { user: user?.toObject() },
       );
     } catch (error) {
       console.log(`${messages.wrong.internalServerError} : ${error}`);
