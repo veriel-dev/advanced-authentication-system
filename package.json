@@ -5,11 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:backend": "cd backend && npm install && npm run build",
-    "build:frontend": "cd frontend && npm install && npm run build",
-    "build": "npm run build:backend && npm run build:frontend",
-    "start": "npm run start --prefix backend && npm run preview --prefix frontend",
+    "build:backend": "cd backend && pnpm install && pnpm run build",
+    "build:backend-hexagonal": "cd backend-hexagonal && pnpm install && pnpm run build",
+    "build:frontend-react": "cd frontend-react && pnpm install && pnpm run build",
+    "build:hexagonal-react": "pnpm run build:backend-hexagonal && pnpm run build:frontend-react",
+    "build": "pnpm run build:backend && pnpm run build:frontend",
+    "start:hexagonal-react": "concurrently \"cd backend-hexagonal && pnpm run start\" \"cd frontend-react && pnpm run preview\"",
     "prepare": "husky",
+    "start:hexagonal": "cd backend-hexagonal && pnpm run start",
     "format": "pnpm --filter './backend-hexagonal' format && pnpm --filter './frontend-react' format",
     "lint": "pnpm --filter './backend-hexagonal' lint:fix && pnpm --filter './frontend-react' lint:fix"
   },
@@ -17,6 +20,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^9.1.2",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0"
   }

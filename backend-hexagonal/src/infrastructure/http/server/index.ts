@@ -16,14 +16,17 @@ import { AuthController } from '../controllers/AuthController';
 import createAuthRouter from '../routes/AuthRoutes';
 // Importar Connect DB
 import { connectDB } from '../../config/database';
+import path from 'path';
 
 class Server {
   public app: Express;
-  private PREFIX_URL: String;
+  private PREFIX_URL: string;
+  private frontendPath: string;
 
   constructor() {
     this.app = express();
     this.PREFIX_URL = '/api/v1';
+    this.frontendPath = config.frontendPath;
     this.connectDb();
     this.middleware();
     this.routes();
@@ -32,7 +35,6 @@ class Server {
   private middleware(): void {
     this.app.use(express.json());
     this.app.use(cookieParser());
-    console.log({ url: config.clientUrl });
     this.app.use(
       cors({
         origin: config.clientUrl,
@@ -40,6 +42,9 @@ class Server {
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
       }),
     );
+    if (config.environment === "production") {
+      this.app.use(express.static(this.frontendPath));
+    }
   }
   private routes(): void {
     // Crear los repositorios
@@ -63,11 +68,15 @@ class Server {
     this.app.get('/health', (req: Request, res: Response) => {
       res.status(200).json({ status: 'ok' });
     });
+    if (config.environment === "production") {
+      this.app.get("*", (req: Request, res: Response) => {
+        res.sendFile(path.join(this.frontendPath, "index.html"));
+      });
+    } 
   }
   private async connectDb(): Promise<void> {
     await connectDB();
   }
-
   public async start() {
     this.app.listen(config.port, () => {
       console.log(`Server running on http://localhost:${config.port}`);

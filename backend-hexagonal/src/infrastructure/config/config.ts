@@ -12,4 +12,6 @@ export const config = {
   emailFrom: process.env.EMAIL_FROM!!,
   clientUrl: process.env.CLIENT_URL!!,
   jwtSecret: process.env.JWT_SECRET!!,
+  environment: process.env.NODE_ENV,
+  frontendPath: process.env.FRONTEND_PATH!!,
 };
