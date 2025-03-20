@@ -11,7 +11,7 @@
     "start": "npm run start --prefix backend && npm run preview --prefix frontend",
     "prepare": "husky",
     "format": "pnpm --filter './backend-hexagonal' format && pnpm --filter './frontend-react' format",
-    "lint": "pnpm --filter './backend-hexagonal' lint && pnpm --filter './frontend-react' lint"
+    "lint": "pnpm --filter './backend-hexagonal' lint:fix && pnpm --filter './frontend-react' lint:fix"
   },
   "keywords": [],
   "author": "",
